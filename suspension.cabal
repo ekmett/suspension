@@ -1,0 +1,50 @@
+name:          suspension
+category:      Language, Compilers/Interpreters
+version:       0
+license:       BSD2
+cabal-version: >= 1.24
+license-file:  LICENSE.markdown
+author:        Edward A. Kmett
+maintainer:    Edward A. Kmett <ekmett@gmail.com>
+stability:     experimental
+homepage:      http://github.com/ekmett/suspension/
+bug-reports:   http://github.com/ekmett/suspension/issues
+copyright:     Copyright (C) 2017 Edward A. Kmett, Francesco Mazzoli
+synopsis:      Suspension without remorse
+description:   A generic λProlog-like suspension calculus for lazier substitution of environments.
+build-type:    Custom
+extra-source-files:
+  .travis.yml
+  config
+  travis-cabal-apt-install
+  CHANGELOG.markdown
+  README.markdown
+  LICENSE.markdown
+
+source-repository head
+  type: git
+  location: git://github.com/ekmett/suspension.git
+
+custom-setup
+  setup-depends:
+    base >= 4.8 && <5,
+    Cabal,
+    cabal-doctest >= 1 && <1.1
+
+library
+  hs-source-dirs: src
+  ghc-options: -Wall
+  build-depends:
+    base                >= 4   && < 5
+--  exposed-modules:
+--    Suspension
+
+-- Verify the results of the examples
+test-suite doctests
+  hs-source-dirs: tests
+  ghc-options: -Wall -threaded
+  type:    exitcode-stdio-1.0
+  main-is: doctests.hs
+  build-depends:
+    base      >= 4,
+    doctest   >= 0.11.1 && <0.12
