@@ -1,11 +1,12 @@
 {-# LANGUAGE GADTs, RankNTypes, DeriveTraversable, ViewPatterns, LambdaCase, KindSignatures, EmptyCase, PolyKinds #-}
+{-# OPTIONS_GHC -Wno-redundant-constraints #-}
 module Suspension where
 
 import Bound.Class
-import Control.Monad (liftM, ap)
+import Control.Monad (ap)
 import Control.Monad.Trans.Class
 import Control.Category
-import Prelude hiding (id,(.))
+import Prelude hiding (id,(.),gcd)
 import Data.TASequence
 import Data.TASequence.FastCatQueue
 
@@ -73,15 +74,15 @@ instance Monad f => Applicative (Susp f) where
   (<*>) = ap
 
 instance Monad f => Monad (Susp f) where
-  Susp (Env gab0 wbc0) fa0 >>= cfd0 = go fa0 gab0 wbc0 cfd0 where
-    go :: Monad f => f a -> Q (E f) a b -> Q W b c -> (c -> Susp f d) -> Susp f d
-    go fa gab wbc cfd = case tviewl gab of 
+ --Susp (Env gab0 wbc0) fa0 >>= cfd0 = go fa0 gab0 wbc0 cfd0 where
+ --   go :: Monad f => f a -> Q (E f) a b -> Q W b c -> (c -> Susp f d) -> Susp f d
+ --   go fa gab wbc cfd = case tviewl gab of 
       -- E sa :< ga'b -> go _fa' ga'b wbc cfd
 
 instance Bound Susp
 
 instance Functor f => Functor (Susp f) where
-  fmap cd0 (Susp (Env eab0 wbc0) fa0) = undefined -- go fa0 eab0 wbc0 cd0 where
+  -- fmap cd0 (Susp (Env eab0 wbc0) fa0) = undefined -- go fa0 eab0 wbc0 cd0 where
 {-
     go :: Functor f => f a -> Q (E f) a b -> Q W b c -> (c -> d) -> Susp f d
     go fa eab wbc cd = case tviewl eab of
